@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bdd092c5dea2c1489bd9bc7c42d5fc3, type: 3}
+  m_Name: Enemy_Aidahar
+  m_EditorClassIdentifier: SteppeBastion.Runtime::SteppeBastion.Data.EnemyData
+  displayName: Aidahar
+  sprite: {fileID: 21300000, guid: 4bf267596f38c024da408b9817e4d117, type: 3}
+  scale: 2
+  maxHealth: 700
+  speed: 0.6
+  reward: 150
+  livesDamage: 5
+  flying: 0
+  isBoss: 1
+  splitInto: {fileID: 0}
+  splitCount: 0

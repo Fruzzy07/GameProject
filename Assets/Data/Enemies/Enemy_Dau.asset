@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bdd092c5dea2c1489bd9bc7c42d5fc3, type: 3}
+  m_Name: Enemy_Dau
+  m_EditorClassIdentifier: SteppeBastion.Runtime::SteppeBastion.Data.EnemyData
+  displayName: Dau
+  sprite: {fileID: 21300000, guid: 76d21e3e0b9f9be4daa40b06562586b8, type: 3}
+  scale: 1.4
+  maxHealth: 120
+  speed: 0.8
+  reward: 25
+  livesDamage: 3
+  flying: 0
+  isBoss: 0
+  splitInto: {fileID: 0}
+  splitCount: 0
