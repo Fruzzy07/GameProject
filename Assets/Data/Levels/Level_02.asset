@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897b5a9f51d3abd4c81c946c9ea8f7bd, type: 3}
+  m_Name: Level_02
+  m_EditorClassIdentifier: Assembly-CSharp::SteppeBastion.Data.LevelData
+  displayName: Golden Steppe
+  startGold: 300
+  startLives: 20
+  firstWaveDelay: 20
+  timeBetweenWaves: 11
+  earlyCallGoldPerSecond: 2
+  towers:
+  - {fileID: 11400000, guid: 1bad27927f10da14aa9a69f5c8e966e1, type: 2}
+  - {fileID: 11400000, guid: e16377a8e5c7ffe4bbb431f98b26895c, type: 2}
+  - {fileID: 11400000, guid: 3d01894cfcb947c479ad90ad6e60dae7, type: 2}
+  - {fileID: 11400000, guid: 862b2881717878446b4157cb76c06e64, type: 2}
+  waves:
+  - groups:
+    - enemy: {fileID: 11400000, guid: dcfae10273edccc4f873d5d1dae62e2d, type: 2}
+      count: 8
+      interval: 1.1
+      startDelay: 0
+  - groups:
+    - enemy: {fileID: 11400000, guid: dcfae10273edccc4f873d5d1dae62e2d, type: 2}
+      count: 10
+      interval: 0.9
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: 9391b4ee98dc6984d984115631c6f482, type: 2}
+      count: 3
+      interval: 1.5
+      startDelay: 3
+  - groups:
+    - enemy: {fileID: 11400000, guid: a99edd6dc38bf7d47bd5b439204035b3, type: 2}
+      count: 4
+      interval: 1.6
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: dcfae10273edccc4f873d5d1dae62e2d, type: 2}
+      count: 8
+      interval: 0.8
+      startDelay: 2
+  - groups:
+    - enemy: {fileID: 11400000, guid: 0d05435c18a3f1f46aef47c94e52af5e, type: 2}
+      count: 3
+      interval: 2.4
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: 9391b4ee98dc6984d984115631c6f482, type: 2}
+      count: 5
+      interval: 1.2
+      startDelay: 3
+  - groups:
+    - enemy: {fileID: 11400000, guid: dcfae10273edccc4f873d5d1dae62e2d, type: 2}
+      count: 14
+      interval: 0.6
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: a99edd6dc38bf7d47bd5b439204035b3, type: 2}
+      count: 4
+      interval: 1.5
+      startDelay: 4
+  - groups:
+    - enemy: {fileID: 11400000, guid: bb9e1a95a04ec284d890daef01e5b4db, type: 2}
+      count: 1
+      interval: 1
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: dcfae10273edccc4f873d5d1dae62e2d, type: 2}
+      count: 10
+      interval: 0.8
+      startDelay: 4
+  - groups:
+    - enemy: {fileID: 11400000, guid: 9391b4ee98dc6984d984115631c6f482, type: 2}
+      count: 8
+      interval: 0.9
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: 0d05435c18a3f1f46aef47c94e52af5e, type: 2}
+      count: 3
+      interval: 2.2
+      startDelay: 2
+  - groups:
+    - enemy: {fileID: 11400000, guid: a99edd6dc38bf7d47bd5b439204035b3, type: 2}
+      count: 6
+      interval: 1.3
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: dcfae10273edccc4f873d5d1dae62e2d, type: 2}
+      count: 12
+      interval: 0.6
+      startDelay: 3
+  - groups:
+    - enemy: {fileID: 11400000, guid: 0d05435c18a3f1f46aef47c94e52af5e, type: 2}
+      count: 5
+      interval: 1.8
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: 9391b4ee98dc6984d984115631c6f482, type: 2}
+      count: 6
+      interval: 1
+      startDelay: 4
+  - groups:
+    - enemy: {fileID: 11400000, guid: a99edd6dc38bf7d47bd5b439204035b3, type: 2}
+      count: 6
+      interval: 1.2
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: 9391b4ee98dc6984d984115631c6f482, type: 2}
+      count: 6
+      interval: 1
+      startDelay: 2
+    - enemy: {fileID: 11400000, guid: dcfae10273edccc4f873d5d1dae62e2d, type: 2}
+      count: 14
+      interval: 0.5
+      startDelay: 6
+  - groups:
+    - enemy: {fileID: 11400000, guid: 0d05435c18a3f1f46aef47c94e52af5e, type: 2}
+      count: 4
+      interval: 2
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: a99edd6dc38bf7d47bd5b439204035b3, type: 2}
+      count: 6
+      interval: 1.3
+      startDelay: 3
+    - enemy: {fileID: 11400000, guid: 9391b4ee98dc6984d984115631c6f482, type: 2}
+      count: 8
+      interval: 0.9
+      startDelay: 6
+  - groups:
+    - enemy: {fileID: 11400000, guid: bb9e1a95a04ec284d890daef01e5b4db, type: 2}
+      count: 2
+      interval: 6
+      startDelay: 0
+    - enemy: {fileID: 11400000, guid: 0d05435c18a3f1f46aef47c94e52af5e, type: 2}
+      count: 4
+      interval: 2.2
+      startDelay: 3
+    - enemy: {fileID: 11400000, guid: 9391b4ee98dc6984d984115631c6f482, type: 2}
+      count: 8
+      interval: 1
+      startDelay: 6
