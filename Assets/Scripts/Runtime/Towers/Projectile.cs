@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SteppeBastion.Audio;
 using SteppeBastion.Data;
 using SteppeBastion.Enemies;
 using UnityEngine;
@@ -76,6 +77,7 @@ namespace SteppeBastion.Towers
                     foreach (Enemy enemy in splashBuffer)
                         enemy.TakeDamage(damage);
                     HitEffect.Create(hitEffectPrefab, targetPoint, data.splashRadius * 2f, data.projectileColor);
+                    GameAudio.Play(s => s.catapultHit, 0.8f);
                     break;
 
                 case AttackType.Slow:

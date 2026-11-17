@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using SteppeBastion.Audio;
 using SteppeBastion.Data;
 using SteppeBastion.Enemies;
 using UnityEngine;
@@ -60,6 +61,7 @@ namespace SteppeBastion.Core
             foreach (SpawnGroup group in wave.groups)
                 StartCoroutine(SpawnGroup(group));
             WaveStarted?.Invoke(CurrentWave);
+            GameAudio.Play(s => s.waveStart, 0.6f, 0f);
         }
 
         private IEnumerator SpawnGroup(SpawnGroup group)
