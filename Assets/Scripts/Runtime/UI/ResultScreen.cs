@@ -2,11 +2,11 @@ using System.Collections;
 using SteppeBastion.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace SteppeBastion.UI
 {
-    /// <summary>Victory and defeat window. On victory the earned stars pop in one by one.</summary>
     public class ResultScreen : MonoBehaviour
     {
         private const float StarDelay = 0.35f;
@@ -17,8 +17,8 @@ namespace SteppeBastion.UI
         [SerializeField] private Text infoText;
         [SerializeField] private Image[] stars;
         [SerializeField] private Button restartButton;
+        [SerializeField] private Button nextLevelButton;
         [SerializeField] private Button mainMenuButton;
-        [Tooltip("Found in the scene automatically if left empty.")]
         [SerializeField] private WaveSpawner spawner;
 
         [Header("Colors")]
@@ -29,8 +29,8 @@ namespace SteppeBastion.UI
         {
             restartButton.onClick.AddListener(SceneLoader.RestartLevel);
             mainMenuButton.onClick.AddListener(SceneLoader.LoadMainMenu);
+            nextLevelButton.onClick.AddListener(() => SceneLoader.Load(LevelProgress.NextScene()));
             window.SetActive(false);
-            // The screen is a prefab shared by all levels, so it can't reference a scene object directly.
             if (spawner == null) spawner = FindAnyObjectByType<WaveSpawner>();
         }
 
@@ -47,12 +47,14 @@ namespace SteppeBastion.UI
 
             LevelManager manager = LevelManager.Instance;
             bool won = state == GameState.Won;
+            int earned = won ? StarRating.ForCurrentLevel() : 0;
             window.SetActive(true);
 
             if (won)
             {
+                bool record = LevelProgress.SaveStars(SceneManager.GetActiveScene().name, earned);
                 titleText.text = "VICTORY!";
-                infoText.text = $"Ak Orda stands. Lives kept: {manager.Lives}/{manager.Level.startLives}";
+                infoText.text = $"Lives kept: {manager.Lives}/{manager.Level.startLives}" + (record ? "  ·  New best!" : "");
             }
             else
             {
@@ -60,19 +62,20 @@ namespace SteppeBastion.UI
                 infoText.text = $"Waves held back: {Mathf.Max(0, spawner.CurrentWave - 1)}/{spawner.TotalWaves}";
             }
 
-            // On defeat all three stars stay empty.
+            nextLevelButton.gameObject.SetActive(won && LevelProgress.NextScene() != null);
+
             foreach (Image star in stars)
             {
                 star.color = emptyStar;
                 star.transform.localScale = Vector3.one;
             }
-            if (won) StartCoroutine(RevealStars(StarRating.ForCurrentLevel()));
+            if (won) StartCoroutine(RevealStars(earned));
 
-            if (EventSystem.current != null)
-                EventSystem.current.SetSelectedGameObject(restartButton.gameObject);
+            Button first = nextLevelButton.gameObject.activeSelf ? nextLevelButton : restartButton;
+            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(first.gameObject);
         }
 
-        /// <summary>The game is stopped (timeScale 0) on this screen, so the animation runs on unscaled time.</summary>
+        // timeScale is 0 on this screen
         private IEnumerator RevealStars(int earned)
         {
             for (int i = 0; i < earned && i < stars.Length; i++)
@@ -81,9 +84,7 @@ namespace SteppeBastion.UI
                 stars[i].color = earnedStar;
                 for (float t = 0f; t < 1f; t += Time.unscaledDeltaTime / StarPopTime)
                 {
-                    // Grows past full size, then settles back: a small "pop".
-                    float scale = 1f + 0.4f * Mathf.Sin(t * Mathf.PI);
-                    stars[i].transform.localScale = Vector3.one * scale;
+                    stars[i].transform.localScale = Vector3.one * (1f + 0.4f * Mathf.Sin(t * Mathf.PI));
                     yield return null;
                 }
                 stars[i].transform.localScale = Vector3.one;

@@ -1,4 +1,3 @@
-using SteppeBastion.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -6,26 +5,30 @@ using UnityEngine.UI;
 
 namespace SteppeBastion.UI
 {
-    /// <summary>Main menu screen: start the game, open settings, quit.</summary>
     public class MainMenu : MonoBehaviour
     {
         [SerializeField] private Button playButton;
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button quitButton;
 
-        [Header("Settings window")]
+        [Header("Windows")]
+        [SerializeField] private LevelSelect levelSelect;
+        [SerializeField] private Button levelSelectBackButton;
         [SerializeField] private GameObject settingsWindow;
         [SerializeField] private Button settingsBackButton;
 
+        private Button returnTo;
+
         private void Awake()
         {
-            playButton.onClick.AddListener(Play);
-            settingsButton.onClick.AddListener(OpenSettings);
+            playButton.onClick.AddListener(() => Open(levelSelect.gameObject, levelSelect.FirstCard, playButton));
+            settingsButton.onClick.AddListener(() => Open(settingsWindow, settingsBackButton, settingsButton));
             quitButton.onClick.AddListener(Quit);
-            settingsBackButton.onClick.AddListener(CloseSettings);
+            levelSelectBackButton.onClick.AddListener(CloseWindows);
+            settingsBackButton.onClick.AddListener(CloseWindows);
 
-            // Quitting makes no sense in a browser tab.
             quitButton.gameObject.SetActive(Application.platform != RuntimePlatform.WebGLPlayer);
+            levelSelect.gameObject.SetActive(false);
             settingsWindow.SetActive(false);
         }
 
@@ -33,22 +36,23 @@ namespace SteppeBastion.UI
 
         private void Update()
         {
-            if (settingsWindow.activeSelf && Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-                CloseSettings();
+            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+                CloseWindows();
         }
 
-        private void Play() => SceneLoader.Load(SceneLoader.FirstLevelScene);
-
-        private void OpenSettings()
+        private void Open(GameObject window, Selectable first, Button from)
         {
-            settingsWindow.SetActive(true);
-            Select(settingsBackButton);
+            window.SetActive(true);
+            returnTo = from;
+            Select(first);
         }
 
-        private void CloseSettings()
+        private void CloseWindows()
         {
+            if (!levelSelect.gameObject.activeSelf && !settingsWindow.activeSelf) return;
+            levelSelect.gameObject.SetActive(false);
             settingsWindow.SetActive(false);
-            Select(settingsButton);
+            if (returnTo != null) Select(returnTo);
         }
 
         private static void Quit()
@@ -60,7 +64,6 @@ namespace SteppeBastion.UI
 #endif
         }
 
-        /// <summary>Gives keyboard and gamepad navigation a starting point.</summary>
         private static void Select(Selectable selectable)
         {
             if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(selectable.gameObject);
