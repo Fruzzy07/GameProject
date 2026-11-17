@@ -860,6 +860,7 @@ GameObject:
   - component: {fileID: 6092930293866892137}
   - component: {fileID: 2252614940502712364}
   - component: {fileID: 2860347672088990929}
+  - component: {fileID: 5139450264733651730}
   m_Layer: 0
   m_Name: LevelMenus
   m_TagString: Untagged
@@ -992,6 +993,18 @@ MonoBehaviour:
   spawner: {fileID: 0}
   earnedStar: {r: 1, g: 0.85, b: 0.4, a: 1}
   emptyStar: {r: 0.17, g: 0.11, b: 0.07, a: 0.6}
+--- !u!114 &5139450264733651730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3793909985761704838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693040806162a4e8c9b4b8a6ddac4919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SteppeBastion.UI.UIClickSound
 --- !u!1 &4164797184001087067
 GameObject:
   m_ObjectHideFlags: 0

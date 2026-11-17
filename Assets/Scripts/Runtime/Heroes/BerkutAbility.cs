@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SteppeBastion.Audio;
 using SteppeBastion.Enemies;
 using SteppeBastion.Towers;
 using UnityEngine;
@@ -46,6 +47,7 @@ namespace SteppeBastion.Heroes
         {
             if (!Ready) return;
             timer = cooldown;
+            GameAudio.Play(s => s.berkutCry, 0.9f, 0.05f);
             StartCoroutine(Fly(point));
         }
 
@@ -71,6 +73,7 @@ namespace SteppeBastion.Heroes
             foreach (Enemy enemy in targets)
                 enemy.TakeDamage(damage);
             HitEffect.Create(hitEffectPrefab, point, radius * 2f, new Color(1f, 0.85f, 0.3f));
+            GameAudio.Play(s => s.berkutStrike);
 
             for (float t = 0f; t < 1f; t += Time.deltaTime / flightTime)
             {

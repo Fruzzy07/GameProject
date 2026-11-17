@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SteppeBastion.Audio;
 using SteppeBastion.Core;
 using SteppeBastion.Data;
 using SteppeBastion.Enemies;
@@ -28,6 +29,7 @@ namespace SteppeBastion.Towers
 
         private float cooldown;
         private float packedTimer;
+        private Animator animator;
 
         public TowerData Data { get; private set; }
         public int Level { get; private set; }
@@ -43,6 +45,7 @@ namespace SteppeBastion.Towers
             Data = data;
             name = data.displayName;
             body.sprite = data.sprite;
+            animator = body.GetComponent<Animator>();
             range.enabled = false;
             ApplyLevel();
         }
@@ -69,6 +72,7 @@ namespace SteppeBastion.Towers
             Spot.Clear();
             target.Place(this);
             packedTimer = PackTime;
+            GameAudio.Play(s => s.packTower);
         }
 
         private void ApplyLevel()
@@ -116,6 +120,14 @@ namespace SteppeBastion.Towers
 
         private void Attack(Enemy target)
         {
+            if (animator != null) animator.SetTrigger("Shoot");
+            GameAudio.Play(Data.attack switch
+            {
+                AttackType.Splash => s => s.catapultShot,
+                AttackType.Slow => s => s.shamanShot,
+                AttackType.Chain => s => s.lightning,
+                _ => s => s.arrowShot
+            }, 0.5f);
             if (Data.attack == AttackType.Chain)
                 ChainLightning(target);
             else

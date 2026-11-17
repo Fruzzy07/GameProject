@@ -1,4 +1,5 @@
 using System.Collections;
+using SteppeBastion.Audio;
 using SteppeBastion.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -49,6 +50,7 @@ namespace SteppeBastion.UI
             bool won = state == GameState.Won;
             int earned = won ? StarRating.ForCurrentLevel() : 0;
             window.SetActive(true);
+            GameAudio.Play(s => won ? s.victory : s.defeat, 1f, 0f);
 
             if (won)
             {

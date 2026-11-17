@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SteppeBastion.Audio;
 using SteppeBastion.Controls;
 using SteppeBastion.Core;
 using SteppeBastion.Data;
@@ -71,7 +72,11 @@ namespace SteppeBastion.UI
                     () => LevelManager.Instance.CanAfford(data.BuildCost),
                     () =>
                     {
-                        if (LevelManager.Instance.TrySpend(data.BuildCost)) spot.Build(data);
+                        if (LevelManager.Instance.TrySpend(data.BuildCost))
+                        {
+                            spot.Build(data);
+                            GameAudio.Play(s => s.build);
+                        }
                         Close();
                     });
                 AddHover(button, $"{data.displayName}\n<size=18>{data.description}</size>");
@@ -90,7 +95,11 @@ namespace SteppeBastion.UI
                     () => LevelManager.Instance.CanAfford(tower.UpgradeCost),
                     () =>
                     {
-                        if (LevelManager.Instance.TrySpend(tower.UpgradeCost)) tower.Upgrade();
+                        if (LevelManager.Instance.TrySpend(tower.UpgradeCost))
+                        {
+                            tower.Upgrade();
+                            GameAudio.Play(s => s.upgrade);
+                        }
                         Open(spot);
                     });
             }
@@ -105,6 +114,7 @@ namespace SteppeBastion.UI
                 () =>
                 {
                     tower.Sell();
+                    GameAudio.Play(s => s.sell);
                     Close();
                 });
         }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SteppeBastion.Audio;
 using SteppeBastion.Core;
 using SteppeBastion.Data;
 using UnityEngine;
@@ -61,6 +62,13 @@ namespace SteppeBastion.Enemies
             visual.localScale = Vector3.one * (size / data.sprite.bounds.size.x);
             visual.localPosition = data.flying ? Vector3.up * FlyingHeight : Vector3.zero;
             healthBar.Place(size + (data.flying ? FlyingHeight + 0.1f : 0.1f), Mathf.Max(0.6f, size * 0.6f));
+
+            var animator = body.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.speed = data.speed / 1.3f;
+                animator.Play(0, 0, Random.value);
+            }
         }
 
         private void OnEnable() => active.Add(this);
@@ -130,6 +138,7 @@ namespace SteppeBastion.Enemies
         private void Die()
         {
             LevelManager.Instance.AddGold(Data.reward);
+            GameAudio.Play(s => s.enemyDeath, 0.6f);
 
             // Mystan splits into spirits that continue from the same place on the road.
             for (int i = 0; i < Data.splitCount && Data.splitInto != null; i++)
@@ -144,6 +153,7 @@ namespace SteppeBastion.Enemies
         {
             health = 0f;
             LevelManager.Instance.LoseLives(Data.livesDamage);
+            GameAudio.Play(s => s.baseHit);
             Destroy(gameObject);
         }
     }
